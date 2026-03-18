@@ -12,3 +12,6 @@ jcesperanza@neu.edu.ph
 to Redirect to Admin Dashboard
 
 It can use Google Sign Up Account, and it is authorized by NEU account Only
+
+Christian F. Dela Cruz
+2BSIT-1
