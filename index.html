@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEU Library - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="./NEU.png">
+</head>
+<body id="loginBody">
+    <div class="main-wrapper" id="mainWrapper">
+        <div class="sidebar">
+            <div class="login-container">
+                <div class="login-header">
+                    <div class="logo-container">
+                        <img src="NEU.jpg" alt="NEU Logo" class="neu-logo">
+                    </div>
+                    <h2 class="logo-text">NEU Library</h2>
+                    <p class="subtitle">Library Visitor Log System</p>
+                </div>  
+
+                <div class="mode-switch-wrapper px-4 mb-3">
+                    <div class="mode-toggle">
+                        <button type="button" id="visitorModeBtn" class="mode-btn active">Visitor</button>
+                        <button type="button" id="adminModeBtn" class="mode-btn">Admin</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="loginForm" class="login-form">
+                        <h6 class="form-title" id="formTitle">Account Login</h6>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Institutional Email</label>
+                            <div class="input-wrapper">
+                                <div class="input-field">
+                                    <i class="bi bi-envelope input-icon"></i>
+                                    <input type="email" id="loginEmail" class="form-control" placeholder="name@neu.edu.ph" pattern=".*@neu\.edu\.ph$" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-wrapper">
+                                <div class="input-field">
+                                    <i class="bi bi-lock-fill input-icon"></i>
+                                    <input type="password" id="loginPass" class="form-control" placeholder="Password" required>
+                                    <button class="toggle-pass" type="button" id="toggleLoginPass">
+                                        <i class="bi bi-eye eye-icon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-row">
+                            <button type="submit" class="login-btn" id="loginBtn">
+                                <span class="btn-content">
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                    <span id="btnText">Login</span>
+                                    <div class="btn-loader" id="loginLoader"></div>
+                                </span>
+                            </button>
+                            <a href="register.html" class="register-btn">
+                                <span class="btn-content">
+                                    <i class="bi bi-person-plus"></i>
+                                    <span>Create Account</span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="divider" id="formDivider">
+                            <hr class="divider-line">
+                        </div>
+                        <button type="button" class="login-btn google-btn mt-2" id="googleLoginBtn">
+                            <span class="btn-content">
+                                <i class="bi bi-google"></i>
+                                <span>Sign in with Google</span>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <div class="copyright">
+                        <p class="copyright-text"><i class="bi bi-shield-check"></i> © 2026 New Era University Library</p>
+                        <p class="copyright-subtext">Library Management System</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-area">
+            <div class="overlay">
+                <div class="particles" id="particles"></div>
+                <div class="welcome-text">
+                    <h1 class="welcome-title">Welcome to</h1>
+                    <h2 class="welcome-subtitle">NEU Library</h2>
+                    <p class="welcome-desc">Digital Visitor Management System</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    <div id="profileModal" class="modal-overlay" style="display:none; position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;">
+                            <div class="modal-box bg-white p-4 rounded" style="width:90%;max-width:700px;max-height:90%;overflow:auto;">
+                                <h4 class="mb-3">Complete Your Profile</h4>
+                                <form id="modalProfileForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" id="fullNameInput" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" id="emailInput" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="form-label">Student ID</label>
+                                    <input type="text" id="studentIDInput" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="form-label">Role</label>
+                                    <select id="roleSelect" class="form-select" required>
+                                        <option value="" disabled selected>Select Role</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Faculty">Faculty</option>
+                                        <option value="Employee">Employee</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-md-6" id="positionContainer" style="display:none;">
+                                    <label class="form-label">Position</label>
+                                    <select id="positionSelect" class="form-select">
+                                        <option value="">Select Position</option>
+                                        <option value="Librarian">Librarian</option>
+                                        <option value="Staff">Staff</option>
+                                        <option value="Security Guard">Security Guard</option>
+                                        <option value="Admin Assistant">Admin Assistant</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-md-6" id="yearContainer">
+                                    <label class="form-label">Year Level</label>
+                                    <select id="yearLevelSelect" class="form-select">
+                                        <option value="N/A">N/A</option>
+                                        <option value="1">1st Year</option>
+                                        <option value="2">2nd Year</option>
+                                        <option value="3">3rd Year</option>
+                                        <option value="4">4th Year</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="form-label">Department</label>
+                                    <select id="deptSelect" class="form-select" required>
+                                        <option value="" disabled selected>Select Department...</option>
+                                        <optgroup id="gradGroup" label="Graduate & Special">
+                                        <option value="School of Graduate Studies">School of Graduate Studies</option>
+                                        </optgroup>
+                                        <optgroup id="undergradGroup" label="Undergraduate Colleges">
+                                        <option value="College of Accountancy">College of Accountancy</option>
+                                        <option value="College of Agriculture">College of Agriculture</option>
+                                        <option value="College of Arts and Sciences">College of Arts and Sciences</option>
+                                        <option value="College of Business Administration">College of Business Administration</option>
+                                        <option value="College of Communication">College of Communication</option>
+                                        <option value="College of Informatics and Computing Studies">College of Informatics and Computing Studies</option>
+                                        <option value="College of Criminology">College of Criminology</option>
+                                        <option value="College of Education">College of Education</option>
+                                        <option value="College of Engineering and Architecture">College of Engineering and Architecture</option>
+                                        <option value="College of Nursing">College of Nursing</option>
+                                        </optgroup>
+                                        <optgroup id="facultyGroup" label="Faculty Departments" hidden>
+                                        <option value="College of Accountancy Faculty">College of Accountancy Faculty</option>
+                                        <option value="College of Agriculture Faculty">College of Agriculture Faculty</option>
+                                        <option value="College of Arts and Sciences Faculty">College of Arts and Sciences Faculty</option>
+                                        <option value="College of Business Administration Faculty">College of Business Administration Faculty</option>
+                                        <option value="College of Communication Faculty">College of Communication Faculty</option>
+                                        <option value="College of Informatics and Computing Studies Faculty">College of Informatics and Computing Studies Faculty</option>
+                                        <option value="College of Criminology Faculty">College of Criminology Faculty</option>
+                                        <option value="College of Education Faculty">College of Education Faculty</option>
+                                        <option value="College of Engineering and Architecture Faculty">College of Engineering and Architecture Faculty</option>
+                                        <option value="College of Medical Technology Faculty">College of Medical Technology Faculty</option>
+                                        <option value="College of Midwifery Faculty">College of Midwifery Faculty</option>
+                                        <option value="College of Music Faculty">College of Music Faculty</option>
+                                        <option value="College of Nursing Faculty">College of Nursing Faculty</option>
+                                        <option value="College of Physical Therapy Faculty">College of Physical Therapy Faculty</option>
+                                        <option value="College of Respiratory Therapy Faculty">College of Respiratory Therapy Faculty</option>
+                                        <option value="School of International Relations Faculty">School of International Relations Faculty</option>
+                                        </optgroup>
+                                    </select>
+                                    </div>
+                                    <div class="col-md-6" id="courseContainer">
+                                    <label class="form-label">Course / Program</label>
+                                    <select id="courseSelect" class="form-select" disabled>
+                                        <option value="">Select Department First</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end mt-3 gap-2">
+                                    <button type="button" id="cancelProfileBtn" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Profile</button>
+                                </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword ,signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfc7MLTrpLHVciObB02CdnNIdIEzk2Jvk",
+            authDomain: "librarysystem-9f6cd.firebaseapp.com",
+            projectId: "librarysystem-9f6cd",
+            storageBucket: "librarysystem-9f6cd.appspot.com",
+            messagingSenderId: "617348451553",
+            appId: "1:617348451553:web:dfd4c28c04a7ddac32bba0",
+            measurementId: "G-J51H7101CW"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+
+        const googleBtn = document.getElementById("googleLoginBtn");
+        const profileModal = document.getElementById("profileModal");
+        const fullNameInput = document.getElementById("fullNameInput");
+        const emailInput = document.getElementById("emailInput");
+        const studentIDInput = document.getElementById("studentIDInput");
+        const roleSelect = document.getElementById("roleSelect");
+        const positionContainer = document.getElementById("positionContainer");
+        const positionSelect = document.getElementById("positionSelect");
+        const yearContainer = document.getElementById("yearContainer");
+        const yearLevelSelect = document.getElementById("yearLevelSelect");
+        const deptSelect = document.getElementById("deptSelect");
+        const courseContainer = document.getElementById("courseContainer");
+        const courseSelect = document.getElementById("courseSelect");
+        const modalProfileForm = document.getElementById("modalProfileForm");
+        const cancelProfileBtn = document.getElementById("cancelProfileBtn");
+
+        const loginEmail = document.getElementById("loginEmail");
+        const loginPass = document.getElementById("loginPass");
+        const toggleLoginPass = document.getElementById("toggleLoginPass");
+        const registerBtn = document.querySelector(".register-btn");
+
+        const visitorModeBtn = document.getElementById("visitorModeBtn");
+        const adminModeBtn = document.getElementById("adminModeBtn");
+        const formTitle = document.getElementById("formTitle");
+        const loginBtnText = document.getElementById("btnText");
+        const loginForm = document.getElementById("loginForm");
+
+        const togglePass = document.getElementById("toggleLoginPass");
+        const passwordInput = document.getElementById("loginPass");
+        const icon = togglePass.querySelector("i");
+
+        let loginMode = "Visitor";
+
+
+        const employeeDepartments = ["Library", "Registrar Office", "Guidance Office", "IT Office","Security Office", "Admin Office", "Maintenance", "Finance Office"];
+        const courseData = {
+            "College of Accountancy": ["BS in Accountancy", "BS in Accounting Information System"],
+            "College of Agriculture": ["BS in Agriculture"],
+            "College of Arts and Sciences": ["BA in Economics", "BA in Political Science", "BS in Biology", "BS in Psychology", "Public Administration"],
+            "College of Business Administration": ["BSBA Financial Management", "BSBA Human Resource Development", "BSBA Legal Management", "BSBA Marketing Management", "BS in Entrepreneurship", "BS in Real Estate Management"],
+            "College of Communication": ["BA in Broadcasting", "BA in Communication", "BA in Journalism"],
+            "College of Informatics and Computing Studies": ["Bachelor of Library and Information Science", "BS in Computer Science", "BS EMC - Digital Animation", "BS EMC - Game Development", "BS in Information Technology", "BS in Information System"],
+            "College of Criminology": ["BS in Criminology"],
+            "College of Education": ["BEEd", "BEEd Preschool Education", "BEEd Special Education", "BSEd MAPEH", "BSEd English", "BSEd Filipino", "BSEd Mathematics", "BSEd Science", "BSEd Social Studies", "BSEd TLE"],
+            "College of Engineering and Architecture": ["BS in Architecture", "BS in Astronomy", "BS in Civil Engineering", "BS in Electrical Engineering", "BS in Electronics Engineering", "BS in Industrial Engineering", "BS in Mechanical Engineering"],
+            "College of Medical Technology": ["BS in Medical Technology"],
+            "College of Midwifery": ["Diploma in Midwifery"],
+            "College of Music": ["BM in Choral Conducting", "BM in Music Education", "BM in Piano", "BM in Voice"],
+            "College of Nursing": ["BS in Nursing"],
+            "College of Physical Therapy": ["BS in Physical Therapy"],
+            "College of Respiratory Therapy": ["BS in Respiratory Therapy"],
+            "School of International Relations": ["BA in Foreign Service"],
+            "School of Graduate Studies": [
+                "Doctor in Business Administration", "Master in Business Administration",
+                "MBA Major in Human Resource Management", "MBA Major in Organizational Development",
+                "PhD in Education Major in Bilingual Education", "PhD in Education Major in Early Childhood Education",
+                "PhD in Education Major in Educational Leadership", "PhD in Education Major in Educational Management",
+                "PhD in Education Major in Guidance & Counseling", "PhD in Education Major in Instructional Leadership",
+                "PhD in Education Major in Special Education and Inclusive Education",
+                "MA in Education Major in Early Childhood Education", "MA in Education Major in Educational Management",
+                "MA in Education Major in Educational Psychology", "MA in Education Major in Educational Technology",
+                "MA in Education Major in Environmental Education", "MA in Education Major in Filipino",
+                "MA in Education Major in Guidance and Counseling", "MA in Education Major in Language Education",
+                "MA in Education Major in Mathematics Education", "MA in Education Major in Reading Education",
+                "MA in Education Major in Science Education", "MA in Education Major in Social Science",
+                "MA in Education Major in Special Education and Inclusive Education"
+            ]
+        };
+
+            
+
+            togglePass.addEventListener("click", () => {
+                const type = passwordInput.type === "password" ? "text" : "password";
+                passwordInput.type = type;
+                icon.classList.toggle("bi-eye");
+                icon.classList.toggle("bi-eye-slash");
+            });     
+
+
+        roleSelect.addEventListener("change", () => {
+            const role = roleSelect.value;
+            if(role==="Employee"){
+                yearContainer.style.display = 'none';
+                courseContainer.style.display = 'none';
+                positionContainer.style.display = 'block';
+                deptSelect.innerHTML = '<option value="" disabled selected>Select Department...</option>';
+                employeeDepartments.forEach(dep => {
+                    const opt = document.createElement("option");
+                    opt.value = dep; opt.textContent = dep; deptSelect.appendChild(opt);
+                });
+            } else if(role==="Faculty"){
+                yearContainer.style.display = 'none';
+                courseContainer.style.display = 'none';
+                positionContainer.style.display = 'none';
+            } else {
+                positionContainer.style.display="none";
+                yearContainer.style.display="block";
+                courseContainer.style.display="block";
+            }
+            courseSelect.disabled=true;
+            courseSelect.innerHTML='<option value="">Select Department First</option>';
+        });
+
+
+        deptSelect.addEventListener("change", () => {
+            const dept = deptSelect.value;
+            const courses = courseData[dept] || [];
+            courseSelect.innerHTML='<option value="" disabled selected>Select Course...</option>';
+            courseSelect.disabled = courses.length===0;
+            courses.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value=c; opt.textContent=c; courseSelect.appendChild(opt);
+            });
+        });
+
+
+        visitorModeBtn.addEventListener("click", () => {
+            loginMode = "Visitor";
+            visitorModeBtn.classList.add("active");
+            adminModeBtn.classList.remove("active");
+            formTitle.textContent = "Account Login";
+            loginBtnText.textContent = "Login";
+            loginEmail.parentElement.parentElement.style.display = "block";
+            loginPass.parentElement.parentElement.style.display = "block";
+            toggleLoginPass.style.display = "inline-block";
+            registerBtn.style.display = "inline-block";
+            document.body.classList.remove("admin-mode-active");
+        });
+
+        adminModeBtn.addEventListener("click", () => {
+            loginMode = "Admin";
+            adminModeBtn.classList.add("active");
+            visitorModeBtn.classList.remove("active");
+            formTitle.textContent = "Admin Login";
+            loginBtnText.textContent = "Login as Admin";
+            loginEmail.parentElement.parentElement.style.display = "block";
+            loginPass.parentElement.parentElement.style.display = "block";
+            toggleLoginPass.style.display = "inline-block";
+            registerBtn.style.display = "none";
+            document.body.classList.add("admin-mode-active");
+        });
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = loginEmail.value.trim();
+            const password = loginPass.value.trim();
+
+            try {
+        
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if(!userDoc.exists()) {
+                    alert("User not found in database");
+                    await signOut(auth);
+                    return;
+                }
+
+                const data = userDoc.data();
+
+                if(["Student","Faculty","Employee"].includes(data.role)) {
+                    window.location.href = "visitor.html"; 
+                } else if(data.role === "Admin") {
+                    window.location.href = "admin.html"; 
+                } else {
+                    alert("You cannot access visitor page");
+                }
+            } catch(err) {
+                alert("Login failed: " + err.message);
+            }
+        });
+
+
+        googleBtn.addEventListener("click", async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                if(!user.email.endsWith("@neu.edu.ph")){
+                    alert("Only NEU emails allowed");
+                    await signOut(auth);
+                    return;
+                }
+
+                const userRef = doc(db, "users", user.uid);
+                let userDoc = await getDoc(userRef);
+
+                if(!userDoc.exists()){
+                    await setDoc(userRef, {
+                        name: user.displayName || "",
+                        email: user.email,
+                        studentID: "",
+                        role: "Student",
+                        department: "",
+                        course: "",
+                        yearLevel: "",
+                        position: ""
+                    });
+                    userDoc = await getDoc(userRef);
+                }
+
+                const data = userDoc.data();
+
+                if(loginMode === "Visitor" && ["Student","Faculty","Employee"].includes(data.role)){
+                    let needsProfile = false;
+
+                    if(data.role === "Student" && (!data.studentID || !data.department)){
+                        needsProfile = true;
+                    } else if(data.role === "Faculty" && !data.department){
+                        needsProfile = true;
+                    } else if(data.role === "Employee" && (!data.department || !data.position)){
+                        needsProfile = true;
+                    }
+
+                    if(needsProfile){
+                        fullNameInput.value = data.name || user.displayName || "";
+                        emailInput.value = data.email || user.email;
+                        studentIDInput.value = data.studentID || "";
+                        roleSelect.value = data.role || "Student";
+                        deptSelect.value = data.department || "";
+                        yearLevelSelect.value = data.yearLevel || "N/A";
+                        positionSelect.value = data.position || "";
+
+                        deptSelect.dispatchEvent(new Event('change'));
+                        roleSelect.dispatchEvent(new Event('change'));
+                        profileModal.style.display = "flex";
+                    } else {
+                        
+                        window.location.href = "visitor.html";
+                    }
+
+                } else if(loginMode === "Admin") {
+                    if (user.email === "jcesperanza@neu.edu.ph") {       
+                        window.location.href = "admin.html";
+                    } else {
+                        alert("You do not have admin access");
+                        await signOut(auth); 
+                        return;
+                    }
+                }
+
+            } catch(err){
+                alert("Google Sign-In failed: " + err.message);
+            }
+        });
+
+
+        modalProfileForm.addEventListener("submit", async (e)=>{
+            e.preventDefault();
+            if(!roleSelect.value || !deptSelect.value || (roleSelect.value==="Student" && !studentIDInput.value) || (roleSelect.value==="Employee" && !positionSelect.value)){
+                alert("Please fill all required fields");
+                return;
+            }
+
+            const user = auth.currentUser;
+            await setDoc(doc(db,"users",user.uid),{
+                name: fullNameInput.value,
+                email: emailInput.value,
+                studentID: studentIDInput.value || "",
+                role: roleSelect.value,
+                department: deptSelect.value,
+                course: courseSelect.value || "",
+                yearLevel: yearLevelSelect.value || "",
+                position: positionSelect.value || ""
+            }, { merge: true });
+
+            profileModal.style.display = "none";
+            alert("Profile saved!");
+            window.location.href = "visitor.html";
+        });
+
+
+        cancelProfileBtn.addEventListener("click", async ()=>{
+            profileModal.style.display = "none";
+            await signOut(auth);
+            alert("Profile not completed. Signed out.");
+        });
+</script>
+</body>
+</html>
+</body>
+</html>
