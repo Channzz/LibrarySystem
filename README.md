@@ -6,4 +6,4 @@ Optional:
 Insti: jcesperanza@neu.edu.ph
 Password: 12-33445-678
 
-Can you Google Sign Up, and it is authorized by NEU account Only
+It can use Google Sign Up Account, and it is authorized by NEU account Only
